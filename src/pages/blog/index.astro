@@ -1,0 +1,48 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import Card from '../../components/Card.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<Layout title="博客 — APPLEpig's Blog" description="APPLEpig 的所有博客文章">
+  <Navbar />
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-4xl font-bold mb-8">博客文章</h1>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post) => (
+        <a href={`/blog/${post.id}`} class="block group">
+          <Card title={post.data.title}>
+            {post.data.description && <p class="mb-3">{post.data.description}</p>}
+            <div class="flex items-center gap-3">
+              <time class="text-sm text-gray-500">
+                {post.data.date.toLocaleDateString('zh-CN', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </time>
+              {post.data.tags.length > 0 && (
+                <div class="flex gap-1.5">
+                  {post.data.tags.map((tag: string) => (
+                    <span class="px-2 py-0.5 rounded-full text-xs border border-border text-accent">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </Card>
+        </a>
+      ))}
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

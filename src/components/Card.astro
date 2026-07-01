@@ -1,0 +1,15 @@
+---
+interface Props {
+  children: Astro.Children;
+  title?: string;
+}
+
+const { children, title } = Astro.props;
+---
+
+<article class="glass p-6 transition-smooth hover:border-accent/50">
+  {title && <h3 class="text-xl font-semibold mb-2 text-text">{title}</h3>}
+  <div class="text-gray-400">
+    {children}
+  </div>
+</article>

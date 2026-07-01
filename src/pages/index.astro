@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import Button from '../components/Button.astro';
+import Card from '../components/Card.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<Layout title="APPLEpig's Blog">
+  <Navbar />
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Hero -->
+    <section class="py-24 text-center">
+      <h1 class="text-5xl sm:text-6xl font-bold tracking-tight mb-6">
+        Hi, I'm <span class="text-accent">APPLEpig</span>
+      </h1>
+      <p class="text-gray-400 text-lg max-w-2xl mx-auto mb-8">
+        来自中国的开发者。在这里记录技术思考、项目实践与灵感。
+        深色主题 · 玻璃拟态 · 内容至上。
+      </p>
+      <div class="flex gap-4 justify-center">
+        <Button variant="primary" size="lg" href="/blog">阅读博客</Button>
+        <Button variant="secondary" size="lg" href="/about">关于我</Button>
+      </div>
+    </section>
+
+    <!-- Latest Posts -->
+    <section class="pb-24">
+      <h2 class="text-2xl font-semibold mb-8">最新文章</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => (
+          <a href={`/blog/${post.id}`} class="block group">
+            <Card title={post.data.title}>
+              {post.data.description && <p class="mb-3">{post.data.description}</p>}
+              <time class="text-sm text-gray-500">
+                {post.data.date.toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </time>
+            </Card>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

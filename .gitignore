@@ -1,0 +1,28 @@
+# 依赖
+node_modules
+
+# Astro 构建产物（由 GitHub Actions 重新构建，不入库）
+dist/
+
+# Astro 生成的缓存与类型
+.astro/
+
+# 环境变量与本地配置
+.env
+.env.*
+!.env.example
+.claude/settings.local.json
+
+# 系统/编辑器
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# 日志与临时文件
+*.log
+npm-debug.log*
+
+# 个人文件（不公开到仓库）
+*.pdf
+写入.md
