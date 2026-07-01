@@ -4,7 +4,7 @@ interface Props {
   description?: string;
 }
 
-const { title = "APPLEpig's Blog", description = "A minimal dark-mode blog by APPLEpig (msmlwdzh) — technical thoughts, projects, and ideas." } = Astro.props;
+const { title = "APPLEpig's Blog", description = "一杯咖啡，漫游代码与星辰 —— APPLEpig (msmlwdzh) 的个人博客：技术思考、项目实践与灵感。" } = Astro.props;
 import '../styles/globals.css';
 ---
 
@@ -20,6 +20,12 @@ import '../styles/globals.css';
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="APPLEpig's Blog" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800;9..144,900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <title>{title}</title>
   </head>
   <body class="min-h-screen bg-bg text-text">

@@ -2,7 +2,6 @@
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
-import Card from '../../components/Card.astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('posts')).sort(
@@ -13,32 +12,35 @@ const posts = (await getCollection('posts')).sort(
 <Layout title="博客 — APPLEpig's Blog" description="APPLEpig 的所有博客文章">
   <Navbar />
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h1 class="text-4xl font-bold mb-8">博客文章</h1>
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+    <h1 class="text-3xl font-extrabold mb-1">博客文章</h1>
+    <svg class="title-underline mb-8" viewBox="0 0 320 14" preserveAspectRatio="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 9 Q 80 2 160 7 T 312 6" style="stroke:var(--color-gold);stroke-width:2;fill:none;stroke-linecap:round;opacity:0.75" />
+      <circle cx="312" cy="6" r="2.6" style="fill:var(--color-accent-alt)" />
+    </svg>
+    <div class="divide-y divide-border">
       {posts.map((post) => (
-        <a href={`/blog/${post.id}`} class="block group">
-          <Card title={post.data.title}>
-            {post.data.description && <p class="mb-3">{post.data.description}</p>}
-            <div class="flex items-center gap-3">
-              <time class="text-sm text-gray-500">
-                {post.data.date.toLocaleDateString('zh-CN', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </time>
-              {post.data.tags.length > 0 && (
-                <div class="flex gap-1.5">
-                  {post.data.tags.map((tag: string) => (
-                    <span class="px-2 py-0.5 rounded-full text-xs border border-border text-accent">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
-          </Card>
+        <a href={`/blog/${post.id}`} class="block py-5 group hover:bg-surface -mx-3 px-3 transition-smooth">
+          <h2 class="text-base font-semibold mb-1 group-hover:text-accent transition-smooth">{post.data.title}</h2>
+          {post.data.description && <p class="text-muted text-sm leading-relaxed mb-2">{post.data.description}</p>}
+          <div class="flex items-center gap-3">
+            <time class="text-xs text-muted/60">
+              {post.data.date.toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </time>
+            {post.data.tags.length > 0 && (
+              <div class="flex gap-1.5">
+                {post.data.tags.map((tag: string) => (
+                  <span class="px-2 py-0.5 text-xs text-accent/70 border border-border rounded">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
         </a>
       ))}
     </div>
